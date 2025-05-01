@@ -44,7 +44,9 @@ function ToastPlayground() {
     setVariantInputValue(DEFAULT_VARIANT);
   }, []);
 
-  const handlePopToast = React.useCallback(() => {
+  const handlePopToast = React.useCallback((event) => {
+    event.preventDefault();
+    
     setToasts((prevToasts) => [
       ...prevToasts,
       {
@@ -75,7 +77,7 @@ function ToastPlayground() {
         <ToastShelf toasts={toasts} dismissToastById={handleDismissToastById} />
       )}
 
-      <div className={styles.controlsWrapper}>
+      <form className={styles.controlsWrapper} onSubmit={(e) => handlePopToast(e)}>
         <div className={styles.row}>
           <label
             htmlFor="message"
@@ -124,10 +126,10 @@ function ToastPlayground() {
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <Button onClick={handlePopToast}>Pop Toast!</Button>
+            <Button type="submit">Pop Toast!</Button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
