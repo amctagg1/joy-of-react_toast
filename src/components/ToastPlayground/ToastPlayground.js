@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '../Button';
-import Toast from '../Toast';
+import ToastShelf from '../ToastShelf';
 
 import styles from './ToastPlayground.module.css';
 
@@ -37,23 +37,31 @@ const DEFAULT_VARIANT = 'notice';
 function ToastPlayground() {
   const [messageInputValue, setMessageInputValue] = React.useState('');
   const [variantInputValue, setVariantInputValue] = React.useState(DEFAULT_VARIANT);
-  const [isToastVisible, setIsToastVisible] = React.useState(false);
-  const [currentToastVariant, setCurrentToastVariant] = React.useState(DEFAULT_VARIANT);
-  const [currentToastText, setCurrentToastText] = React.useState('');
+  const [toasts, setToasts] = React.useState([]);
 
-  const handlePopToast = React.useCallback(() => {
-    setIsToastVisible(true);
-    setCurrentToastVariant(variantInputValue);
-    setCurrentToastText(messageInputValue);
+  const resetFormInputs = React.useCallback(() => {
     setMessageInputValue('');
     setVariantInputValue(DEFAULT_VARIANT);
-  }, [variantInputValue, messageInputValue]);
+  }, []);
 
-  const handleDismiss = React.useCallback(() => {
-    setIsToastVisible(false);
-    setCurrentToastText('');
-    setCurrentToastVariant(DEFAULT_VARIANT);
-  }
+  const handlePopToast = React.useCallback(() => {
+    setToasts((prevToasts) => [
+      ...prevToasts,
+      {
+        id: crypto.randomUUID(),
+        variant: variantInputValue,
+        text: messageInputValue,
+      }
+    ]);
+
+    resetFormInputs();
+  }, [variantInputValue, messageInputValue, resetFormInputs]);
+
+  const handleDismissToastById = React.useCallback((id) => {
+    setToasts((prevToasts) => {
+      return prevToasts.filter((toast) => toast.id !== id);
+    }
+  )}
   , []);
 
   return (
@@ -63,8 +71,8 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      {isToastVisible && (
-        <Toast variant={currentToastVariant} text={currentToastText} dismiss={handleDismiss}/>
+      {toasts.length > 0 && (
+        <ToastShelf toasts={toasts} dismissToastById={handleDismissToastById} />
       )}
 
       <div className={styles.controlsWrapper}>
