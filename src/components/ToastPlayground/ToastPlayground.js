@@ -56,8 +56,8 @@ function ToastPlayground() {
           </div>
         </div>
 
-        <div className={styles.row}>
-          <div className={styles.label}>Variant</div>
+        <fieldset className={styles.row}>
+          <legend className={styles.label}>Variant</legend>
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
@@ -75,7 +75,7 @@ function ToastPlayground() {
               </label>
             ))}
           </div>
-        </div>
+        </fieldset>
 
         <div className={styles.row}>
           <div className={styles.label} />
