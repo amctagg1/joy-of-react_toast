@@ -4,9 +4,37 @@ import Button from '../Button';
 
 import styles from './ToastPlayground.module.css';
 
-const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
+const VARIANT_OPTIONS = [
+  {
+    id: 'variant-notice',
+    name: 'variant',
+    value: 'notice',
+    text: 'Notice',
+  },
+  {
+    id: 'variant-warning',
+    name: 'variant',
+    value: 'warning',
+    text: 'Warning',
+  },
+  {
+    id: 'variant-success',
+    name: 'variant',
+    value: 'success',
+    text: 'Success',
+  },
+  {
+    id: 'variant-error',
+    name: 'variant',
+    value: 'error',
+    text: 'Error',
+  },
+];
 
 function ToastPlayground() {
+  const [messageInputValue, setMessageInputValue] = React.useState('');
+  const [variantValue, setVariantValue] = React.useState('notice');
+
   return (
     <div className={styles.wrapper}>
       <header>
@@ -24,7 +52,7 @@ function ToastPlayground() {
             Message
           </label>
           <div className={styles.inputWrapper}>
-            <textarea id="message" className={styles.messageInput} />
+            <textarea id="message" className={styles.messageInput} value={messageInputValue} onChange={setMessageInputValue}/>
           </div>
         </div>
 
@@ -33,17 +61,19 @@ function ToastPlayground() {
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <label htmlFor="variant-notice">
-              <input
-                id="variant-notice"
-                type="radio"
-                name="variant"
-                value="notice"
-              />
-              notice
-            </label>
-
-            {/* TODO Other Variant radio buttons here */}
+            {VARIANT_OPTIONS.map((variant) => (
+              <label key={variant.id} htmlFor={variant.id}>
+                <input
+                  id={variant.id}
+                  type="radio"
+                  name={variant.name}
+                  value={variant.value}
+                  checked={variant.value === variantValue}
+                  onChange={() => setVariantValue(variant.value)}
+                />
+                {variant.text}
+              </label>
+            ))}
           </div>
         </div>
 
