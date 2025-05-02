@@ -36,26 +36,13 @@ const VARIANT_INPUTS = [
 const DEFAULT_VARIANT = 'notice';
 
 function ToastPlayground() {
-  const [messageInputValue, setMessageInputValue] = React.useState('');
-  const [variantInputValue, setVariantInputValue] = React.useState(DEFAULT_VARIANT);
-
-  const { addNewToast } = React.useContext(ToastContext);
-
-  const resetFormInputs = React.useCallback(() => {
-    setMessageInputValue('');
-    setVariantInputValue(DEFAULT_VARIANT);
-  }, []);
-
-  const handlePopToast = React.useCallback((event) => {
-    event.preventDefault();
-
-    addNewToast({
-      variant: variantInputValue,
-      text: messageInputValue,
-    });
-
-    resetFormInputs();
-  }, [variantInputValue, messageInputValue, resetFormInputs, addNewToast]);
+  const {
+    messageInputValue,
+    setMessageInputValue,
+    variantInputValue,
+    setVariantInputValue,
+    handleNewToastFormSubmit,
+  } = useNewToastForm();
 
   return (
     <div className={styles.wrapper}>
@@ -66,7 +53,7 @@ function ToastPlayground() {
 
       <ToastShelf />
 
-      <form className={styles.controlsWrapper} onSubmit={handlePopToast}>
+      <form className={styles.controlsWrapper} onSubmit={handleNewToastFormSubmit}>
         <div className={styles.row}>
           <label
             htmlFor="message"
@@ -121,6 +108,37 @@ function ToastPlayground() {
       </form>
     </div>
   );
+}
+
+function useNewToastForm() {
+  const [messageInputValue, setMessageInputValue] = React.useState('');
+  const [variantInputValue, setVariantInputValue] = React.useState(DEFAULT_VARIANT);
+
+  const { addNewToast } = React.useContext(ToastContext);
+
+  const resetFormInputs = React.useCallback(() => {
+    setMessageInputValue('');
+    setVariantInputValue(DEFAULT_VARIANT);
+  }, []);
+
+  const handleNewToastFormSubmit = React.useCallback((event) => {
+    event.preventDefault();
+
+    addNewToast({
+      variant: variantInputValue,
+      text: messageInputValue,
+    });
+
+    resetFormInputs();
+  }, [variantInputValue, messageInputValue, resetFormInputs, addNewToast]);
+
+  return {
+    messageInputValue,
+    setMessageInputValue,
+    variantInputValue,
+    setVariantInputValue,
+    handleNewToastFormSubmit,
+  };
 }
 
 export default ToastPlayground;
