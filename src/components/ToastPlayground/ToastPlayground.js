@@ -3,37 +3,9 @@ import React from 'react';
 import { Button } from '../Button/Button';
 import { ToastShelf } from '../ToastShelf/ToastShelf';
 import { ToastContext } from '../ToastProvider/ToastProvider';
+import { TOAST_VARIANTS, DEFAULT_TOAST_VARIANT } from '../Toast/ToastVariants';
 
 import styles from './ToastPlayground.module.css';
-
-const VARIANT_INPUTS = [
-  {
-    id: 'variant-notice',
-    name: 'variant',
-    value: 'notice',
-    text: 'Notice',
-  },
-  {
-    id: 'variant-warning',
-    name: 'variant',
-    value: 'warning',
-    text: 'Warning',
-  },
-  {
-    id: 'variant-success',
-    name: 'variant',
-    value: 'success',
-    text: 'Success',
-  },
-  {
-    id: 'variant-error',
-    name: 'variant',
-    value: 'error',
-    text: 'Error',
-  },
-];
-
-const DEFAULT_VARIANT = 'notice';
 
 export function ToastPlayground() {
   const {
@@ -81,17 +53,17 @@ export function ToastPlayground() {
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            {VARIANT_INPUTS.map((variant) => (
-              <label key={variant.id} htmlFor={variant.id}>
+            {Object.keys(TOAST_VARIANTS).map((key) => (
+              <label key={key} htmlFor={key}>
                 <input
-                  id={variant.id}
+                  id={key}
                   type="radio"
-                  name={variant.name}
-                  value={variant.value}
-                  checked={variant.value === variantInputValue}
-                  onChange={() => setVariantInputValue(variant.value)}
+                  name="toast-variant"
+                  value={key}
+                  checked={key === variantInputValue}
+                  onChange={() => setVariantInputValue(key)}
                 />
-                {variant.text}
+                {TOAST_VARIANTS[key].displayText}
               </label>
             ))}
           </div>
@@ -112,13 +84,13 @@ export function ToastPlayground() {
 
 function useNewToastForm() {
   const [messageInputValue, setMessageInputValue] = React.useState('');
-  const [variantInputValue, setVariantInputValue] = React.useState(DEFAULT_VARIANT);
+  const [variantInputValue, setVariantInputValue] = React.useState(DEFAULT_TOAST_VARIANT);
 
   const { addNewToast } = React.useContext(ToastContext);
 
   const resetFormInputs = React.useCallback(() => {
     setMessageInputValue('');
-    setVariantInputValue(DEFAULT_VARIANT);
+    setVariantInputValue(DEFAULT_TOAST_VARIANT);
   }, []);
 
   const handleNewToastFormSubmit = React.useCallback((event) => {
