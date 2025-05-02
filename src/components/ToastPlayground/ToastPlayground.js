@@ -124,6 +124,10 @@ function useNewToastForm() {
   const handleNewToastFormSubmit = React.useCallback((event) => {
     event.preventDefault();
 
+    if (messageInputValue.trim() === '') {
+      return;
+    }
+
     addNewToast({
       variant: variantInputValue,
       text: messageInputValue,
