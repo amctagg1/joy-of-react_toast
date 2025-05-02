@@ -37,6 +37,7 @@ export function ToastPlayground() {
           <div className={styles.inputWrapper}>
             <textarea 
               id="message" 
+              required
               className={styles.messageInput}  
               value={messageInputValue}
               onChange={event => {
