@@ -13,13 +13,20 @@ export function Toast({ variant = 'notice', text = '', dismiss }) {
     <div className={`${styles.toast} ${styles[variant]}`}>
       <div className={styles.iconContainer}>
         <Icon size={24} />
+        <VisuallyHidden>
+          {TOAST_VARIANTS[variant].displayText}
+        </VisuallyHidden>
       </div>
       <p className={styles.content}>
         {text}
       </p>
-      <button className={styles.closeButton} onClick={dismiss}>
+      <button 
+        aria-label="Dismiss message"
+        aria-live="off"
+        className={styles.closeButton} 
+        onClick={dismiss}
+      >
         <X size={24} />
-        <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
     </div>
   );
