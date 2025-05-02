@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Button from '../Button';
-import ToastShelf from '../ToastShelf';
-import { ToastContext } from '../ToastProvider';
+import { Button } from '../Button/Button';
+import { ToastShelf } from '../ToastShelf/ToastShelf';
+import { ToastContext } from '../ToastProvider/ToastProvider';
 
 import styles from './ToastPlayground.module.css';
 
@@ -35,7 +35,7 @@ const VARIANT_INPUTS = [
 
 const DEFAULT_VARIANT = 'notice';
 
-function ToastPlayground() {
+export function ToastPlayground() {
   const {
     messageInputValue,
     setMessageInputValue,
@@ -144,5 +144,3 @@ function useNewToastForm() {
     handleNewToastFormSubmit,
   };
 }
-
-export default ToastPlayground;

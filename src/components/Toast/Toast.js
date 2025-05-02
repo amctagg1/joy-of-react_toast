@@ -18,7 +18,7 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ variant = 'notice', text = '', dismiss }) {
+export function Toast({ variant = 'notice', text = '', dismiss }) {
   const Icon = ICONS_BY_VARIANT[variant];
 
   return (
@@ -36,5 +36,3 @@ function Toast({ variant = 'notice', text = '', dismiss }) {
     </div>
   );
 }
-
-export default Toast;

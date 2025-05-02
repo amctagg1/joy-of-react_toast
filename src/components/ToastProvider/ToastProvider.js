@@ -1,8 +1,8 @@
 import React from 'react';
 
-export const ToastContext = React.createContext({});
+export const ToastContext = React.createContext();
 
-function ToastProvider({ children }) {
+export function ToastProvider({ children }) {
   const [toasts, setToasts] = React.useState([]);
 
   const addNewToast = React.useCallback((toast) => {
@@ -39,5 +39,3 @@ function ToastProvider({ children }) {
     </ToastContext.Provider>
   );
 }
-
-export default ToastProvider;

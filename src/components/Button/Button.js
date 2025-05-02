@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './Button.module.css';
 
-function Button({ className = '', ...delegated }) {
+export function Button({ className = '', ...delegated }) {
   return (
     <button
       className={`${styles.button} ${className}`}
@@ -10,5 +10,3 @@ function Button({ className = '', ...delegated }) {
     />
   );
 }
-
-export default Button;

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Toast from '../Toast';
-import { ToastContext } from '../ToastProvider';
+import { Toast } from '../Toast/Toast';
+import { ToastContext } from '../ToastProvider/ToastProvider';
 import styles from './ToastShelf.module.css';
 
-function ToastShelf() {
+export function ToastShelf() {
   const {toasts, dismissToastById} = React.useContext(ToastContext);
 
   return (
@@ -21,5 +21,3 @@ function ToastShelf() {
     </>
   );
 }
-
-export default ToastShelf;

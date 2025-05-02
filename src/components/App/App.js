@@ -1,10 +1,10 @@
 import React from 'react';
 
-import ToastPlayground from '../ToastPlayground';
-import ToastProvider from '../ToastProvider';
-import Footer from '../Footer';
+import { ToastPlayground } from '../ToastPlayground/ToastPlayground';
+import { ToastProvider } from '../ToastProvider/ToastProvider';
+import { Footer } from '../Footer/Footer';
 
-function App() {
+export function App() {
   return (
     <ToastProvider>
       <ToastPlayground />
@@ -12,5 +12,3 @@ function App() {
     </ToastProvider>
   );
 }
-
-export default App;
