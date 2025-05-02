@@ -77,7 +77,7 @@ function ToastPlayground() {
         <ToastShelf toasts={toasts} dismissToastById={handleDismissToastById} />
       )}
 
-      <form className={styles.controlsWrapper} onSubmit={(e) => handlePopToast(e)}>
+      <form className={styles.controlsWrapper} onSubmit={handlePopToast}>
         <div className={styles.row}>
           <label
             htmlFor="message"
