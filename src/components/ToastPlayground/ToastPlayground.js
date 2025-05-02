@@ -2,6 +2,7 @@ import React from 'react';
 
 import Button from '../Button';
 import ToastShelf from '../ToastShelf';
+import { ToastContext } from '../ToastProvider';
 
 import styles from './ToastPlayground.module.css';
 
@@ -37,7 +38,8 @@ const DEFAULT_VARIANT = 'notice';
 function ToastPlayground() {
   const [messageInputValue, setMessageInputValue] = React.useState('');
   const [variantInputValue, setVariantInputValue] = React.useState(DEFAULT_VARIANT);
-  const [toasts, setToasts] = React.useState([]);
+
+  const { addNewToast } = React.useContext(ToastContext);
 
   const resetFormInputs = React.useCallback(() => {
     setMessageInputValue('');
@@ -46,25 +48,14 @@ function ToastPlayground() {
 
   const handlePopToast = React.useCallback((event) => {
     event.preventDefault();
-    
-    setToasts((prevToasts) => [
-      ...prevToasts,
-      {
-        id: crypto.randomUUID(),
-        variant: variantInputValue,
-        text: messageInputValue,
-      }
-    ]);
+
+    addNewToast({
+      variant: variantInputValue,
+      text: messageInputValue,
+    });
 
     resetFormInputs();
-  }, [variantInputValue, messageInputValue, resetFormInputs]);
-
-  const handleDismissToastById = React.useCallback((id) => {
-    setToasts((prevToasts) => {
-      return prevToasts.filter((toast) => toast.id !== id);
-    }
-  )}
-  , []);
+  }, [variantInputValue, messageInputValue, resetFormInputs, addNewToast]);
 
   return (
     <div className={styles.wrapper}>
@@ -73,9 +64,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      {toasts.length > 0 && (
-        <ToastShelf toasts={toasts} dismissToastById={handleDismissToastById} />
-      )}
+      <ToastShelf />
 
       <form className={styles.controlsWrapper} onSubmit={handlePopToast}>
         <div className={styles.row}>
