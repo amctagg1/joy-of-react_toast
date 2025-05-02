@@ -5,7 +5,7 @@ import { ToastContext } from '../ToastProvider/ToastProvider';
 import styles from './ToastShelf.module.css';
 
 export function ToastShelf() {
-  const {toasts, dismissToastById} = React.useContext(ToastContext);
+  const { toasts, dismissToastById } = React.useContext(ToastContext);
 
   return (
     <>
